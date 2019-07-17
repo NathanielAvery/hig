@@ -1,5 +1,6 @@
 import {
   COLOR,
+  BORDER_RADIUS,
   BORDER_WIDTH,
   FONT_FAMILY,
   FONT_SIZE,
@@ -71,5 +72,36 @@ export default {
   "tabs.underline.halo.active.color": {
     type: COLOR,
     value: { ref: "colorScheme.accentColor" }
+  },
+
+  // Box
+  "tabs.box.wrapper.backgroundColor": {
+    type: COLOR,
+    value: { ref: "colorScheme.surfaceLevel250Color" }
+  },
+  "tabs.box.wrapper.borderRadius": {
+    type: BORDER_RADIUS,
+    value: { ref: "basics.borderRadii.large" }
+  },
+  "tabs.box.wrapper.verticalPadding": {
+    type: LENGTH,
+    value: { ref: "density.spacings.medium" }
+  },
+  "tabs.box.tab.horizontalPadding": {
+    type: LENGTH,
+    value: { ref: "density.spacings.small" }
+  },
+  "tabs.box.tab.verticalPadding": {
+    type: LENGTH,
+    value: { ref: "density.spacings.extraSmall" }
+  },
+  "tabs.box.tab.active.backgroundColor": {
+    type: COLOR,
+    value: { ref: "colorScheme.surfaceLevel100Color" }
+  },
+  "tabs.box.tab.hover.backgroundColor": {
+    type: COLOR,
+    value: { ref: "colorScheme.surfaceLevel100Color" },
+    transform: { alpha: 0.5 }
   }
 };
