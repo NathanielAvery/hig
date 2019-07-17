@@ -2,7 +2,7 @@ import { action } from "@storybook/addon-actions";
 import { select } from "@storybook/addon-knobs/react";
 import { makeSelectOptions } from "@hig/storybook/utils";
 
-import { alignments } from "../alignments";
+import { alignments } from "../constants";
 
 const alignmentOptions = makeSelectOptions(alignments);
 
