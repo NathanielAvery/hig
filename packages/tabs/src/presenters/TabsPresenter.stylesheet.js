@@ -12,7 +12,11 @@ export default function stylesheet({ align, variant }, themeData) {
       boxSizing: "border-box",
       flexGrow: 1,
       display: "flex",
-      padding: `0 ${themeData["tabs.general.wrapper.horizontalPadding"]}`,
+      padding: `${
+        variant === variants.BOX
+          ? themeData["tabs.box.wrapper.verticalPadding"]
+          : 0
+      } ${themeData["tabs.general.wrapper.horizontalPadding"]}`,
       margin: 0,
       justifyContent: justifyContent[align],
       borderBottom:
@@ -20,7 +24,15 @@ export default function stylesheet({ align, variant }, themeData) {
           ? `${themeData["tabs.underline.wrapper.borderBottomWidth"]} solid ${
               themeData["tabs.underline.wrapper.borderBottomColor"]
             }`
-          : 0
+          : 0,
+      borderRadius:
+        variant === variants.BOX
+          ? themeData["tabs.box.wrapper.borderRadius"]
+          : 0,
+      backgroundColor:
+        variant === variants.BOX
+          ? themeData["tabs.box.wrapper.backgroundColor"]
+          : "transparent"
     }
   };
 }

@@ -43,7 +43,7 @@ export default function TabPresenter({
         );
 
         return (
-          <li className={css(styles.wrapper)}>
+          <li className={css(styles.tab)}>
             <div
               onBlur={onBlur}
               onFocus={onFocus}
@@ -55,9 +55,9 @@ export default function TabPresenter({
               onMouseUp={onMouseUp}
               role="button"
               tabIndex="0"
-              className={css(styles.label)}
+              className={css(styles.wrapper)}
             >
-              <Typography className={css(styles.text)}>{label}</Typography>
+              <Typography className={css(styles.label)}>{label}</Typography>
               <div className={css(styles.halo)} />
             </div>
           </li>

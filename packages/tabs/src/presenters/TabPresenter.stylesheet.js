@@ -45,41 +45,66 @@ function getHaloStyles(
   return styles;
 }
 
+function getTabBackground({ active, hasHover, isPressed, variant }, themeData) {
+  if (variant === variants.UNDERLINE) {
+    return "transparent";
+  }
+  if (active || isPressed) {
+    return themeData["tabs.box.tab.active.backgroundColor"];
+  }
+  if (hasHover) {
+    return themeData["tabs.box.tab.hover.backgroundColor"];
+  }
+  return "transparent";
+}
+
 export default function stylesheet(
   { active, hasHover, hasFocus, isPressed, label, variant },
   themeData
 ) {
   return {
-    wrapper: {
+    tab: {
       position: "relative",
       display: "flex",
       alignContent: "center",
       justifyContent: "center",
       margin: `0 ${themeData["tabs.general.tab.gutter"]} 0 0`,
-      marginBottom:
-        variant === variants.UNDERLINE
-          ? `-${themeData["tabs.underline.wrapper.borderBottomWidth"]}`
-          : 0,
-      cursor: "pointer",
-      userSelect: "none",
-      padding:
-        variant === variants.UNDERLINE
-          ? `0 0 ${themeData["tabs.underline.tab.paddingBottom"]} 0`
-          : 0,
-
       "&:last-of-type": {
         marginRight: 0
       }
     },
-    label: {
+    wrapper: {
+      position: "relative",
       display: "flex",
       alignContent: "center",
       justifyContent: "center",
+      cursor: "pointer",
+      userSelect: "none",
+      transitionDuration: "0.3s",
+      transitionProperty: "background-color",
+
       "&:focus": {
         outline: "none"
-      }
+      },
+
+      ...(variant === variants.UNDERLINE && {
+        marginBottom: `-${
+          themeData["tabs.underline.wrapper.borderBottomWidth"]
+        }`,
+        padding: `0 0 ${themeData["tabs.underline.tab.paddingBottom"]} 0`
+      }),
+
+      ...(variant === variants.BOX && {
+        padding: `${themeData["tabs.box.tab.verticalPadding"]} ${
+          themeData["tabs.box.tab.horizontalPadding"]
+        }`,
+        backgroundColor: getTabBackground(
+          { active, hasHover, isPressed, variant },
+          themeData
+        )
+      })
     },
-    text: {
+    label: {
       fontFamily: themeData["tabs.general.tab.fontFamily"],
       fontSize: themeData["tabs.general.tab.fontSize"],
       fontWeight: active

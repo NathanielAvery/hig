@@ -76,7 +76,7 @@ class Tabs extends Component {
   static defaultProps = {
     align: alignments.LEFT,
     onTabChange: () => {},
-    variant: variants.UNDERLINE
+    variant: variants.BOX
   };
 
   /** @type {TabsState} */
