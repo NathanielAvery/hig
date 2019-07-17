@@ -2,9 +2,10 @@ import { action } from "@storybook/addon-actions";
 import { select } from "@storybook/addon-knobs/react";
 import { makeSelectOptions } from "@hig/storybook/utils";
 
-import { alignments } from "../constants";
+import { alignments, variants } from "../constants";
 
 const alignmentOptions = makeSelectOptions(alignments);
+const variantsOptions = makeSelectOptions(variants);
 
 const knobGroupIds = {
   basic: "Basic"
@@ -12,11 +13,12 @@ const knobGroupIds = {
 
 const knobLabels = {
   align: "Alignment",
+  variant: "Variant",
   onTabChange: "onTabChange"
 };
 
 export default function getKnobs(props) {
-  const { align, onTabChange, ...otherProps } = props;
+  const { align, variant, onTabChange, ...otherProps } = props;
 
   return {
     ...otherProps,
@@ -24,6 +26,12 @@ export default function getKnobs(props) {
       knobLabels.align,
       alignmentOptions,
       align,
+      knobGroupIds.basic
+    ),
+    variant: select(
+      knobLabels.variant,
+      variantsOptions,
+      variant,
       knobGroupIds.basic
     ),
     onTabChange: action(knobLabels.onTabChange)
