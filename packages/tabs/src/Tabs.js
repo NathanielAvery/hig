@@ -5,7 +5,12 @@ import { createButtonEventHandlers } from "@hig/utils";
 import { polyfill } from "react-lifecycles-compat";
 import memoize from "lodash.memoize";
 
-import { AVAILABLE_ALIGNMENTS, alignments } from "./alignments";
+import {
+  AVAILABLE_ALIGNMENTS,
+  alignments,
+  AVAILABLE_VARIANTS,
+  variants
+} from "./constants";
 import TabsPresenter from "./presenters/TabsPresenter";
 import Tab from "./Tab";
 
@@ -61,12 +66,17 @@ class Tabs extends Component {
     /**
      * Called when user activates a tab
      */
-    onTabChange: PropTypes.func
+    onTabChange: PropTypes.func,
+    /**
+     * The visual variant of the input
+     */
+    variant: PropTypes.oneOf(AVAILABLE_VARIANTS)
   };
 
   static defaultProps = {
-    align: alignments.CENTER,
-    onTabChange: () => {}
+    align: alignments.LEFT,
+    onTabChange: () => {},
+    variant: variants.UNDERLINE
   };
 
   /** @type {TabsState} */
@@ -135,11 +145,13 @@ class Tabs extends Component {
    */
   renderTab = ({ key, props }, index) => {
     const { render, label } = props;
+    const { variant } = this.props;
     const { activeTabIndex } = this.state;
     /** @type {RenderTabPayload} */
     const payload = {
       key,
       label,
+      variant,
       active: activeTabIndex === index,
       ...this.createTabEventHandlers(index)
     };
@@ -152,7 +164,7 @@ class Tabs extends Component {
    */
   renderTabs() {
     return (
-      <TabsPresenter align={this.props.align}>
+      <TabsPresenter align={this.props.align} variant={this.props.variant}>
         {this.getTabs().map(this.renderTab)}
       </TabsPresenter>
     );

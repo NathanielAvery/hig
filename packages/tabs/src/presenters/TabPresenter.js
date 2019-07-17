@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Typography from "@hig/typography";
 import ThemeContext from "@hig/theme-context";
 import { css } from "emotion";
+import { AVAILABLE_VARIANTS } from "../constants";
 import stylesheet from "./TabPresenter.stylesheet";
 
 /**
@@ -23,6 +24,7 @@ export default function TabPresenter({
   hasHover,
   isPressed,
   label,
+  variant,
   onBlur,
   onFocus,
   onClick,
@@ -36,12 +38,12 @@ export default function TabPresenter({
     <ThemeContext.Consumer>
       {({ resolvedRoles }) => {
         const styles = stylesheet(
-          { active, hasFocus, hasHover, isPressed, label },
+          { active, hasFocus, hasHover, isPressed, label, variant },
           resolvedRoles
         );
 
         return (
-          <li className={css(styles.tab)}>
+          <li className={css(styles.wrapper)}>
             <div
               onBlur={onBlur}
               onFocus={onFocus}
@@ -53,9 +55,10 @@ export default function TabPresenter({
               onMouseUp={onMouseUp}
               role="button"
               tabIndex="0"
-              className={css(styles.tabLabel)}
+              className={css(styles.label)}
             >
-              <Typography style={styles.tabLabelText}>{label}</Typography>
+              <Typography className={css(styles.text)}>{label}</Typography>
+              <div className={css(styles.halo)} />
             </div>
           </li>
         );
@@ -67,6 +70,7 @@ export default function TabPresenter({
 TabPresenter.propTypes = {
   active: PropTypes.bool,
   label: PropTypes.string,
+  variant: PropTypes.oneOf(AVAILABLE_VARIANTS),
   hasFocus: PropTypes.bool,
   hasHover: PropTypes.bool,
   isPressed: PropTypes.bool,

@@ -1,6 +1,6 @@
-import { alignments } from "../alignments";
+import { alignments, variants } from "../constants";
 
-export default function stylesheet({ align }, themeData) {
+export default function stylesheet({ align, variant }, themeData) {
   const justifyContent = {
     [alignments.LEFT]: "flex-start",
     [alignments.CENTER]: "center",
@@ -8,15 +8,19 @@ export default function stylesheet({ align }, themeData) {
   };
 
   return {
-    tabs: {
+    wrapper: {
       boxSizing: "border-box",
       flexGrow: 1,
       display: "flex",
-      padding: `${themeData["density.spacings.extraExtraSmall"]} 0 ${
-        themeData["density.spacings.extraSmall"]
-      } 0`,
+      padding: `0 ${themeData["tabs.general.wrapper.horizontalPadding"]}`,
       margin: 0,
-      justifyContent: justifyContent[align]
+      justifyContent: justifyContent[align],
+      borderBottom:
+        variant === variants.UNDERLINE
+          ? `${themeData["tabs.underline.wrapper.borderBottomWidth"]} solid ${
+              themeData["tabs.underline.wrapper.borderBottomColor"]
+            }`
+          : 0
     }
   };
 }

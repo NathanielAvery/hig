@@ -1,114 +1,109 @@
+import { variants } from "../constants";
+
+function getHaloStyles(
+  { active, hasHover, hasFocus, isPressed, variant },
+  themeData
+) {
+  let styles = {
+    position: "absolute",
+    height: 0,
+    transitionDuration: "0.3s",
+    transitionProperty: "height, width"
+    // transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)"
+  };
+
+  if (variant === variants.UNDERLINE) {
+    styles = {
+      ...styles,
+      bottom: 0,
+      width: "100%",
+      backgroundColor: themeData["tabs.underline.halo.hover.color"],
+      overflow: "visible",
+      "&:after": {
+        position: "absolute",
+        top: "100%",
+        backgroundColor: themeData["tabs.underline.halo.color"],
+        content: `" "`,
+        width: "100%",
+        height: hasFocus ? themeData["tabs.general.halo.size"] : 0,
+        transitionDuration: "0.3s",
+        transitionProperty: "height"
+      }
+    };
+
+    if (hasHover || active || isPressed) {
+      styles = {
+        ...styles,
+        height: themeData["tabs.general.halo.size"],
+        ...((active || isPressed) && {
+          backgroundColor: themeData["tabs.underline.halo.active.color"]
+        })
+      };
+    }
+  }
+
+  return styles;
+}
+
 export default function stylesheet(
-  { active, hasHover, isPressed, label },
+  { active, hasHover, hasFocus, isPressed, label, variant },
   themeData
 ) {
   return {
-    tab: {
+    wrapper: {
       position: "relative",
       display: "flex",
       alignContent: "center",
       justifyContent: "center",
-      padding: `0 ${themeData["density.spacings.small"]}`,
-      margin: 0,
+      margin: `0 ${themeData["tabs.general.tab.gutter"]} 0 0`,
+      marginBottom:
+        variant === variants.UNDERLINE
+          ? `-${themeData["tabs.underline.wrapper.borderBottomWidth"]}`
+          : 0,
       cursor: "pointer",
       userSelect: "none",
-      textAlign: "center",
-      borderBottom: `${themeData["tabs.general.borderBottomWidth"]} solid ${
-        themeData["tabs.general.borderBottomColor"]
-      }`,
-
-      "&:first-of-type": {
-        paddingLeft: 0
-      },
+      padding:
+        variant === variants.UNDERLINE
+          ? `0 0 ${themeData["tabs.underline.tab.paddingBottom"]} 0`
+          : 0,
 
       "&:last-of-type": {
-        paddingRight: 0
-      },
-
-      "&:before": {
-        position: "absolute",
-        content: "''",
-        bottom: `-${themeData["tabs.general.borderBottomWidth"]}`,
-        left: themeData["density.spacings.small"],
-        width: `calc(100% - (2 * ${themeData["density.spacings.small"]}))`,
-        borderBottomColor: "transparent",
-        borderBottomStyle: "solid",
-        borderBottomWidth: 0,
-
-        ...(hasHover && {
-          borderBottomColor:
-            themeData["tabs.general.tab.hover.borderBottomColor"],
-          borderBottomWidth:
-            themeData["tabs.general.tab.hover.borderBottomWidth"]
-        }),
-
-        ...((active || isPressed) && {
-          borderBottomColor:
-            themeData["tabs.general.tab.selected.borderBottomColor"],
-          borderBottomWidth:
-            themeData["tabs.general.tab.selected.borderBottomWidth"]
-        })
-      },
-
-      "&:first-of-type:before": {
-        left: 0,
-        width: `calc(100% - ${themeData["density.spacings.small"]})`
-      },
-
-      "&:last-of-type:before": {
-        width: `calc(100% - ${themeData["density.spacings.small"]})`
-      },
-
-      "&:after": {
-        position: "absolute",
-        content: "''",
-        bottom: `-${themeData["tabs.general.tab.focus.halo.width"]}`,
-        left: themeData["density.spacings.small"],
-        width: `calc(100% - (2 * ${themeData["density.spacings.small"]}))`
-      },
-
-      "&:first-of-type:after": {
-        left: 0,
-        width: `calc(100% - ${themeData["density.spacings.small"]})`
-      },
-
-      "&:last-of-type:after": {
-        width: `calc(100% - ${themeData["density.spacings.small"]})`
+        marginRight: 0
       }
     },
-    tabLabel: {
+    label: {
       display: "flex",
-      flexDirection: "column",
+      alignContent: "center",
       justifyContent: "center",
-      alignItems: "center",
-      padding: `${themeData["tabs.general.gutter"]} 0`,
-
       "&:focus": {
         outline: "none"
-      },
-
-      // So that the tab takes up the same amount of space when it's not active (normal font weight) as
-      // when it's active (bold font weight).
-      ...(label && {
-        "&:before": {
-          display: "block",
-          content: `"${label}"`,
-          fontFamily: themeData["tabs.general.tab.fontFamily"],
-          fontSize: themeData["tabs.general.tab.fontSize"],
-          fontWeight: themeData["tabs.general.tab.selected.fontWeight"],
-          height: "0",
-          color: "transparent",
-          overflow: "hidden",
-          visibility: "hidden"
-        }
-      })
+      }
     },
-    tabLabelText: {
+    text: {
+      fontFamily: themeData["tabs.general.tab.fontFamily"],
       fontSize: themeData["tabs.general.tab.fontSize"],
+      fontWeight: active
+        ? themeData["tabs.general.tab.active.fontWeight"]
+        : themeData["tabs.general.tab.fontWeight"],
+      lineHeight: themeData["tabs.general.tab.lineHeight"],
 
-      ...(active && {
-        fontWeight: themeData["tabs.general.tab.selected.fontWeight"]
-      })
-    }
+      // keep same amount of space whether it's active (bold font weight)
+      // or not active (regular font weight)
+      "&:before": {
+        display: "block",
+        content: `"${label}"`,
+        fontFamily: themeData["tabs.general.tab.fontFamily"],
+        fontSize: themeData["tabs.general.tab.fontSize"],
+        fontWeight: themeData["tabs.general.tab.active.fontWeight"],
+        height: "0",
+        color: "transparent",
+        overflow: "hidden",
+        visibility: "hidden"
+      }
+    },
+    halo: getHaloStyles(
+      { active, hasHover, hasFocus, isPressed, variant },
+      themeData
+    )
   };
 }
