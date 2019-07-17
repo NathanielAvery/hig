@@ -4,26 +4,17 @@ import {
   FONT_FAMILY,
   FONT_SIZE,
   FONT_WEIGHT,
+  LENGTH,
+  LINE_HEIGHT,
   SPACING
 } from "../../consts/types";
 
 export default {
   // General
-  "tabs.general.borderBottomColor": {
-    type: COLOR,
-    value: { ref: "colorScheme.baseColor" },
-    transform: { alpha: 0.1 }
+  "tabs.general.wrapper.horizontalPadding": {
+    type: LENGTH,
+    value: { ref: "density.spacings.extraLarge" }
   },
-  "tabs.general.borderBottomWidth": {
-    type: BORDER_WIDTH,
-    value: { ref: "basics.borderWidths.small" }
-  },
-  "tabs.general.gutter": {
-    type: SPACING,
-    value: { ref: "density.spacings.extraSmall" }
-  },
-
-  // General - Tab
   "tabs.general.tab.fontFamily": {
     type: FONT_FAMILY,
     value: { ref: "basics.fontFamilies.main" }
@@ -36,47 +27,49 @@ export default {
     type: FONT_WEIGHT,
     value: { ref: "basics.fontWeights.regular" }
   },
-
-  // General - Tab - Selected
-  "tabs.general.tab.selected.borderBottomColor": {
-    type: COLOR,
-    value: { ref: "colorScheme.accentColor" }
-  },
-  "tabs.general.tab.selected.borderBottomWidth": {
-    type: BORDER_WIDTH,
-    value: { ref: "basics.borderWidths.medium" }
-  },
-  "tabs.general.tab.selected.fontWeight": {
+  "tabs.general.tab.active.fontWeight": {
     type: FONT_WEIGHT,
     value: { ref: "basics.fontWeights.bold" }
   },
-
-  // General - Tab - Disabled
-  "tabs.general.tab.disabled.fontColor": {
-    type: COLOR,
-    value: { ref: "colorScheme.textColor" },
-    transform: { alpha: 0.5 }
+  "tabs.general.tab.lineHeight": {
+    type: LINE_HEIGHT,
+    value: { ref: "typography.body.lineHeight" }
   },
-
-  // General - Tab - Hover
-  "tabs.general.tab.hover.borderBottomColor": {
-    type: COLOR,
-    value: { ref: "colorScheme.baseColor" },
-    transform: { alpha: 0.5 }
+  "tabs.general.tab.gutter": {
+    type: SPACING,
+    value: { ref: "density.spacings.extraExtraLarge" }
   },
-  "tabs.general.tab.hover.borderBottomWidth": {
-    type: BORDER_WIDTH,
+  "tabs.general.halo.size": {
+    type: LENGTH,
     value: { ref: "basics.borderWidths.medium" }
   },
-
-  // General - Tab - Focus
-  "tabs.general.tab.focus.halo.color": {
+  "tabs.underline.halo.color": {
     type: COLOR,
     value: { ref: "colorScheme.accentColor" },
-    transform: { alpha: 0.5 }
+    transform: { alpha: 0.35 }
   },
-  "tabs.general.tab.focus.halo.width": {
+
+  // Underline
+  "tabs.underline.wrapper.borderBottomColor": {
+    type: COLOR,
+    value: { ref: "colorScheme.baseColor" },
+    transform: { alpha: 0.35 }
+  },
+  "tabs.underline.wrapper.borderBottomWidth": {
     type: BORDER_WIDTH,
-    value: { ref: "basics.borderWidths.large" }
+    value: { ref: "basics.borderWidths.small" }
+  },
+  "tabs.underline.tab.paddingBottom": {
+    type: LENGTH,
+    value: { ref: "density.spacings.extraExtraSmall" }
+  },
+  "tabs.underline.halo.hover.color": {
+    type: COLOR,
+    value: { ref: "colorScheme.baseColor" },
+    transform: { alpha: 0.85 }
+  },
+  "tabs.underline.halo.active.color": {
+    type: COLOR,
+    value: { ref: "colorScheme.accentColor" }
   }
 };
