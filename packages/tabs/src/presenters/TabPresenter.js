@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Typography from "@hig/typography";
 import ThemeContext from "@hig/theme-context";
 import { css } from "emotion";
-import { AVAILABLE_VARIANTS } from "../constants";
+import { variants, AVAILABLE_VARIANTS } from "../constants";
 import stylesheet from "./TabPresenter.stylesheet";
 
 /**
@@ -59,6 +59,9 @@ export default function TabPresenter({
             >
               <Typography className={css(styles.label)}>{label}</Typography>
               <div className={css(styles.halo)} />
+              {variant === variants.BOX && (
+                <div className={css(styles.divider)} />
+              )}
             </div>
           </li>
         );

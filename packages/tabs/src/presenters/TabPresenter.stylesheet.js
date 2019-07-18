@@ -22,7 +22,7 @@ function getHaloStyles(
       "&:after": {
         position: "absolute",
         top: "100%",
-        backgroundColor: themeData["tabs.underline.halo.color"],
+        backgroundColor: themeData["tabs.general.halo.color"],
         content: `" "`,
         width: "100%",
         height: hasFocus ? themeData["tabs.general.halo.size"] : 0,
@@ -39,6 +39,17 @@ function getHaloStyles(
           backgroundColor: themeData["tabs.underline.halo.active.color"]
         })
       };
+    }
+  } else if (variant === variants.BOX) {
+    styles = {
+      ...styles,
+      top: 0,
+      width: "100%",
+      backgroundColor: themeData["tabs.general.halo.color"]
+    };
+
+    if (hasFocus) {
+      styles.height = themeData["tabs.general.halo.size"];
     }
   }
 
@@ -129,6 +140,17 @@ export default function stylesheet(
     halo: getHaloStyles(
       { active, hasHover, hasFocus, isPressed, variant },
       themeData
-    )
+    ),
+    divider: {
+      display: variant === variants.BOX ? "block" : "none",
+      position: "absolute",
+      top: "50%",
+      right: 0,
+      transform: "translateY(-50%)",
+      height: themeData["tabs.box.divider.height"],
+      width: themeData["tabs.box.divider.width"],
+      backgroundColor:
+        hasHover || active ? "transparent" : themeData["tabs.box.divider.color"]
+    }
   };
 }

@@ -44,7 +44,7 @@ export default {
     type: LENGTH,
     value: { ref: "basics.borderWidths.medium" }
   },
-  "tabs.underline.halo.color": {
+  "tabs.general.halo.color": {
     type: COLOR,
     value: { ref: "colorScheme.accentColor" },
     transform: { alpha: 0.35 }
@@ -103,5 +103,17 @@ export default {
     type: COLOR,
     value: { ref: "colorScheme.surfaceLevel100Color" },
     transform: { alpha: 0.5 }
+  },
+  "tabs.box.divider.color": {
+    type: COLOR,
+    value: { ref: "divider.heavyColor" }
+  },
+  "tabs.box.divider.width": {
+    type: LENGTH,
+    value: { ref: "divider.width" }
+  },
+  "tabs.box.divider.height": {
+    type: LENGTH,
+    value: "18px"
   }
 };
